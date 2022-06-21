@@ -1,0 +1,108 @@
+import React, { useState } from "react";
+import NavBar from "../components/NavBar";
+import { useParams } from "react-router-dom";
+import "../assets/css/createBlog.css";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Heading from "../components/Heading";
+
+const EditPost = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const blogs = useSelector(state => state.blogs)
+    const [value, setValue] = useState(blogs.find((item) => item.id === parseInt(id)));
+
+    const handleChange = (name) => (event) => {
+    setValue({ ...value, [name]: event.target.value });
+    };
+
+    const handleSubmit = (event) => {
+        if (value.title === "" || value.img === "" || value.description === "") {
+        alert("Please fill all the fields");
+        } else {
+        dispatch({ type: "EDIT_BLOG", payload: value });
+        navigate("/");
+        }
+    }  
+
+//     const handleSubmit = () => {
+//     if (value.title === "" || value.img === "" || value.description === "") {
+//       alert("Please fill all the fields");
+//     } else {
+//       const currentData = JSON.parse(localStorage.getItem("blog"));
+//       if (currentData) {
+//         setValue({ ...value, id: currentData.length + 1 });
+//         const newData = [...currentData, value];
+//         localStorage.setItem("blog", JSON.stringify(newData));
+//       } else {
+//         localStorage.setItem("blog", JSON.stringify([value]));
+//       }
+//       navigate("/");
+//     }
+//   };
+
+  return (
+    <>
+      <NavBar />
+      <Heading title="Edit Blog" />
+      <div className="EditPost">
+        <div className="row">
+          <div className="col-1">
+            <label for="fname">Title</label>
+          </div>
+          <div className="col-2">
+            <input
+              type="text"
+              id="fname"
+              name="firstname"
+              placeholder="Title"
+              onChange={handleChange("title")}
+              value={value.title}
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-1">
+            <label for="lname">Image</label>
+          </div>
+          <div className="col-2">
+            <input
+              type="text"
+              id="lname"
+              name="lastname"
+              placeholder="Image url"
+              onChange={handleChange("img")}
+                value={value.img}
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-1">
+            <label for="subject">Description</label>
+          </div>
+          <div className="col-2">
+            <textarea
+              id="subject"
+              name="subject"
+              placeholder="Write description"
+              onChange={handleChange("description")}
+                value={value.description}
+              styles={{ height: "200px" }}></textarea>
+          </div>
+        </div>
+        <div className="row">
+          <button
+            className="btn"
+            onClick={() => {
+              handleSubmit(value);
+            }}>
+            Submit
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default EditPost;
