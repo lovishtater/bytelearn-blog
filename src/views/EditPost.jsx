@@ -46,52 +46,46 @@ const EditPost = () => {
     <>
       <NavBar />
       <Heading title="Edit Blog" />
-      <div className="EditPost">
-        <div className="row">
-          <div className="col-1">
-            <label for="fname">Title</label>
+      <div className="createBlog">
+        <div>
+          <div>
+            <label>Title</label>
           </div>
-          <div className="col-2">
+          <div>
             <input
               type="text"
-              id="fname"
-              name="firstname"
               placeholder="Title"
               onChange={handleChange("title")}
               value={value.title}
             />
           </div>
         </div>
-        <div className="row">
-          <div className="col-1">
-            <label for="lname">Image</label>
+        <div>
+          <div>
+            <label>Image</label>
           </div>
-          <div className="col-2">
+          <div>
             <input
               type="text"
-              id="lname"
-              name="lastname"
               placeholder="Image url"
               onChange={handleChange("img")}
-                value={value.img}
+              value={value.img}
             />
           </div>
         </div>
-        <div className="row">
-          <div className="col-1">
-            <label for="subject">Description</label>
+        <div>
+          <div>
+            <label>Description</label>
           </div>
-          <div className="col-2">
+          <div>
             <textarea
-              id="subject"
-              name="subject"
               placeholder="Write description"
               onChange={handleChange("description")}
-                value={value.description}
+              value={value.description}
               styles={{ height: "200px" }}></textarea>
           </div>
         </div>
-        <div className="row">
+        <div>
           <button
             className="btn"
             onClick={() => {
